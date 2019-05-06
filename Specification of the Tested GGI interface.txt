@@ -1,0 +1,202 @@
+Specification of the GDI interface (using the GDI-NGOMSL notation)
+
+Method for: Kitchen design
+    step 1. accomplish: Draw the kitchen shape…
+    step 2. accomplish: Furnish…
+    step 3. decide: If restart from scratch?
+                 then goto 1
+    step 4. accomplish: Order kitchen…
+    step 5. return with goal accomplished
+
+Method for: Draw the kitchen shape
+    Cancelable
+    step 1. accomplish: Choose shape…
+    step 2. accomplish: Enter sizes…
+    step 3. accomplish: Place doors and windows…
+    step 4. return with goal accomplished
+
+Method for: Choose shape
+    step 1. click on the shape (of the kitchen to furnish)
+    step 2. decide: If change the chosen shape?
+                    then goto 1
+    step 3. return with goal accomplished
+
+For the system > Selection for: Enter sizes
+    a) If (shape == 2_sides) then accomplish:
+         Enter sizes (in a shape with 2 sides)…
+    b) If (shape == 4_sides) then accomplish:
+         Enter sizes (in a shape with 4 sides)…
+    Return with goal accomplished
+
+Method for: Enter sizes (in a shape with 2 sides)
+    Cancelable
+    step 1. type size for side A (and then, click here)
+    step 2. type size for side B (and then, click here)
+    step 3. decide: If correct any sizes
+                    then goto 1
+    step 4. return with goal accomplished
+
+Method for: Enter sizes (in a shape with 4 sides)
+    Cancelable
+    step 1. type size for side A (and then, click here)
+    step 2. type size for side B (and then, click here)
+    step 3. type size for side C (and then, click here)
+    step 4. type size for side D (and then, click here)
+    step 5. decide: If correct any sizes
+                    then goto 1
+    step 6. return with goal accomplished
+
+Method for: Place doors and windows
+    Cancelable
+    step 1. accomplish: Make changes…
+    step 2. decide: If anything else?
+                    then goto 1
+    step 3. click here to "no more doors or windows"
+    step 4. return with goal accomplished
+
+Selection for: Doors and windows
+    Cancelable  disable if (no_doors == 0)
+      a) If (set door or window) then
+         accomplish: Set door or window…
+      b) If (remove a door or window) then
+           accomplish: Remove door or window…
+         disable if (no_doors == 0)
+      c) If (move door or window) then
+         accomplish: Move door or window…
+           disable if (no_doors == 0)
+      Return with goal accomplished
+
+Method for: Set door or window
+    Cancelable
+    step 1. click object to set
+    step 2. click on its destination
+    step 3. return with goal accomplished
+            effect no_doors++
+
+
+Method for: Remove door or window
+    Cancelable
+    step 1. click object to remove
+    step 2. click here to "confirm deletion"; otherwise, click "cancel"
+    step 3. return with goal accomplished
+            effect no_doors--
+
+Method for: Move door or window
+    Cancelable
+    step 1. click object to move
+    step 2. click on its destination
+    step 3. return with goal accomplished
+
+Method for: Furnish
+    step 1. accomplish: Choose furnishing task…
+    step 2. decide: If continue furnish
+                    then goto 1
+    step 3. click here if no more task to do
+    step 4. accomplish: Choose common items…
+            disable if (materials_chosen == true)
+    step 5. decide: If modify budget
+                    then goto 1
+    step 6. click here to "confirm budget, no allowing more changes"
+    step 7. return with goal accomplished
+
+Selection for: Choose furnishing task
+    Cancelable  disable if (no_items == 0)
+    a) If (set) then
+          accomplish Set item…
+    b) If (move) then
+          accomplish Move item…
+          disable if (no_items == 0)
+    c) If (rotate) then
+          accomplish Rotate item…
+          disable if (no_items == 0)
+    d) If (remove) then
+          accomplish Remove item…
+          disable if (no_items == 0)
+    e) If (clear up kitchen) then
+          accomplish Clear
+          disable if (no_items == 0)
+    f) If (choose materials) then
+          accomplish Choose common materials…
+          disable if (no_items == 0)
+    g) If (3D view) then
+          accomplish 3D view…
+    h) If (check budget) then
+          accomplish Check budget…
+          disable if (no_items == 0)
+    Return with goal accomplished
+
+Method for: Set item
+    Cancelable
+    step 1. accomplish: Choose item type
+    step 2. click on an item
+    step 3. click on its destination
+    step 4. return with goal accomplished
+            effect no_items++
+
+Method for: Move item
+    Cancelable
+    step 1. click the item
+    step 2. click new destination
+    step 3. return with goal accomplished
+
+Method for: Rotate item
+    Cancelable
+    step 1. click the item
+    step 2. click here to rotate it 90 degrees
+    step 3. decide: If rotate again?
+                    then goto 2
+    step 4. click here to continue
+    step 5. click on its new place
+    step 6. return with goal accomplished
+
+Method for: Remove item
+    Cancelable
+    step 1. click on the item to remove
+    step 2. click here to "confirm deletion"; otherwise, click "cancel"
+    step 3. return with goal accomplished
+            effect no_items--
+
+Method for: Clear
+    Cancelable
+    step 1. click here to "confirm clearing up of all items"; otherwise, click "cancel"
+    step 2. return with goal accomplished
+            effect no_items = 0
+
+Method for: Choose common materials
+    Cancelable
+    step 1. click desired work surface
+            disable if (no_work_surface_possible == true)
+    step 2. click desired wood
+            disable if (no_doors_possible == true)
+    step 3. click desired knob
+            disable if (no_knobs_possible == true)
+    step 4. return with goal accomplished
+
+Method for: 3D view
+    step 1. click here to rotate the kitchen
+    step 2. decide: If another rotation
+                    then goto 1
+    step 3. return with goal accomplished
+
+Method for: Check budget
+    step 1. return with goal accomplished
+
+Selection for: Choose kind of item
+    Cancelable
+    a) If (item is low) then
+          effect display_low_items
+    c) If (item is high, on wall) then
+          effect display_high_items
+    c) If (electrical appliance) then
+          effect display_electrical_appliances
+    d) If (another kind of item) then
+          effect display_items_other
+    Return with goal accomplished
+
+Method for: Place order
+    step 1. Enter your name
+    step 2. decide: If make corrections?
+                    then goto 1
+    step 3. return with goal accomplished
+
+
